@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import "./styles.scss";
-import logo from "../../../public/logo.svg";
+import logo from "../../assets/logo.svg";
 
 export default function Header() {
   const [activeCategory, setActiveCategory] = useState("OFERTAS DO DIA");
@@ -54,7 +54,9 @@ export default function Header() {
           <div className="header-content">
             {/* Logo */}
             <div className="logo">
-              <img src={logo} alt="logo" width={139} height={41} />
+              <a href="/">
+                <img src={logo} alt="logo" width={139} height={41} />
+              </a>
             </div>
 
             {/* Search Bar */}
