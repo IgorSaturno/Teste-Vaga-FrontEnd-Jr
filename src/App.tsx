@@ -1,15 +1,13 @@
 import Header from "./components/header";
 import Hero from "./components/hero";
+import CategoryNav from "./components/category-nav";
 
 function App() {
   return (
     <>
       <Header />
       <Hero />
-      <main className="page-container">
-        <h2>Conteúdo da página</h2>
-        <p>Aqui você pode adicionar mais conteúdo</p>
-      </main>
+      <CategoryNav />
     </>
   );
 }
