@@ -129,7 +129,13 @@ function NavigationButtons({
 }
 
 // Componente principal
-export default function ProductGallery() {
+interface ProductGalleryProps {
+  variant?: "default" | "no-tabs";
+}
+
+export default function ProductGallery({
+  variant = "default",
+}: ProductGalleryProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -242,11 +248,13 @@ export default function ProductGallery() {
           <a href="/#">Ver todos</a>
         </div>
 
-        <CategoryTabs
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={handleCategoryChange}
-        />
+        {variant === "default" && (
+          <CategoryTabs
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+        )}
 
         <div className="slider-container">
           <NavigationButtons
