@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "products": [
+    {
+      "productName": "iPhone 15 Pro",
+      "descriptionShort": "iPhone 15 Pro 128GB Titânio Natural 5G Tela 6.1\" Câmera Tripla 48MP iOS 17",
+      "photo": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=278&h=228&fit=crop",
+      "price": 8999.0
+    },
+    {
+      "productName": "Samsung Galaxy S24",
+      "descriptionShort": "Samsung Galaxy S24 128GB Preto 5G Tela 6.2\" Câmera Tripla 50MP Android 14",
+      "photo": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=278&h=228&fit=crop",
+      "price": 7499.0
+    },
+    {
+      "productName": "Xiaomi Redmi Note 13",
+      "descriptionShort": "Xiaomi Redmi Note 13 128GB Azul 5G Tela 6.67\" Câmera Quádrupla 108MP",
+      "photo": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=278&h=228&fit=crop",
+      "price": 1999.0
+    },
+    {
+      "productName": "Motorola Edge 40",
+      "descriptionShort": "Motorola Edge 40 256GB Verde 5G Tela 6.55\" Câmera Dupla 50MP Android 13",
+      "photo": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=278&h=228&fit=crop",
+      "price": 2999.0
+    },
+    {
+      "productName": "Google Pixel 8",
+      "descriptionShort": "Google Pixel 8 128GB Preto 5G Tela 6.2\" Câmera Dupla 50MP Android 14",
+      "photo": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=278&h=228&fit=crop",
+      "price": 6499.0
+    },
+    {
+      "productName": "OnePlus 11",
+      "descriptionShort": "OnePlus 11 256GB Verde 5G Tela 6.7\" Câmera Tripla 50MP Android 13",
+      "photo": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=278&h=228&fit=crop",
+      "price": 5499.0
+    },
+    {
+      "productName": "ASUS ROG Phone 7",
+      "descriptionShort": "ASUS ROG Phone 7 256GB Preto 5G Tela 6.78\" Câmera Tripla 50MP Gaming",
+      "photo": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=278&h=228&fit=crop",
+      "price": 7999.0
+    },
+    {
+      "productName": "Nothing Phone 2",
+      "descriptionShort": "Nothing Phone 2 128GB Branco 5G Tela 6.7\" Câmera Dupla 50MP Android 13",
+      "photo": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=278&h=228&fit=crop",
+      "price": 3999.0
+    }
+  ]
+}

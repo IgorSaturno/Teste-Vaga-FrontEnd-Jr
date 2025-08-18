@@ -1,0 +1,281 @@
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import "./styles.scss";
+
+interface Product {
+  productName: string;
+  descriptionShort: string;
+  photo: string;
+  price: number;
+}
+
+interface ApiResponse {
+  success: boolean;
+  products: Product[];
+}
+
+// Componente para o card de produto individual
+function ProductCard({ product }: { product: Product }) {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(price);
+  };
+
+  const calculateInstallment = (price: number) => {
+    const installmentPrice = price / 2;
+    return formatPrice(installmentPrice);
+  };
+
+  const originalPrice = product.price + 2000;
+
+  return (
+    <article className="product-card" role="article">
+      <div style={{ margin: "30px 0px 9px" }}>
+        <img
+          src={product.photo}
+          alt={product.productName}
+          loading="lazy"
+          width="278"
+          height="228"
+        />
+      </div>
+      <div className="product-info">
+        <span className="product-name">{product.productName}</span>
+
+        <div className="price-container">
+          <span className="original-price">{formatPrice(originalPrice)}</span>
+          <span className="current-price">{formatPrice(product.price)}</span>
+          <span className="installment-info">
+            ou 2x de {calculateInstallment(product.price)} sem juros
+          </span>
+        </div>
+        <p className="shipping-info">Frete grátis</p>
+        <button className="buy-button">Comprar</button>
+      </div>
+    </article>
+  );
+}
+
+// Componente para as abas de categoria
+function CategoryTabs({
+  categories,
+  selectedCategory,
+  onCategoryChange,
+}: {
+  categories: string[];
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+}) {
+  return (
+    <nav
+      className="category-tabs"
+      role="tablist"
+      aria-label="Categorias de produtos"
+    >
+      {categories.map((category) => (
+        <button
+          key={category}
+          className={`category-tab ${
+            selectedCategory === category ? "active" : ""
+          }`}
+          onClick={() => onCategoryChange(category)}
+          role="tab"
+          aria-selected={selectedCategory === category}
+          aria-controls="products-slider"
+          type="button"
+        >
+          {category}
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+// Componente para os botões de navegação
+function NavigationButtons({
+  onPrev,
+  onNext,
+  hasProducts,
+}: {
+  onPrev: () => void;
+  onNext: () => void;
+  hasProducts: boolean;
+}) {
+  return (
+    <>
+      <button
+        className="nav-button prev-button"
+        onClick={onPrev}
+        aria-label="Produtos anteriores"
+        disabled={!hasProducts}
+        type="button"
+      >
+        <ChevronLeft aria-hidden="true" />
+      </button>
+
+      <button
+        className="nav-button next-button"
+        onClick={onNext}
+        aria-label="Próximos produtos"
+        disabled={!hasProducts}
+        type="button"
+      >
+        <ChevronRight aria-hidden="true" />
+      </button>
+    </>
+  );
+}
+
+// Componente principal
+export default function ProductGallery() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("CELULAR");
+
+  const categories = [
+    "CELULAR",
+    "ACESSÓRIOS",
+    "TABLETS",
+    "NOTEBOOKS",
+    "TVS",
+    "VER TODOS",
+  ];
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setError(null);
+        const response = await fetch("/api/produtos.json");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data: ApiResponse = await response.json();
+
+        if (data.success) {
+          setProducts(data.products);
+        } else {
+          throw new Error("Falha ao carregar produtos");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+        setError(error instanceof Error ? error.message : "Erro desconhecido");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 4 >= products.length ? 0 : prev + 4));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) =>
+      prev - 4 < 0 ? Math.max(0, products.length - 4) : prev - 4
+    );
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentSlide(0); // Reset para o início ao trocar categoria
+  };
+
+  // Estados de renderização
+  if (loading) {
+    return (
+      <section
+        className="product-gallery-wrapper"
+        aria-label="Galeria de produtos"
+      >
+        <div className="container">
+          <div className="loading" role="status" aria-live="polite">
+            Carregando produtos...
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section
+        className="product-gallery-wrapper"
+        aria-label="Galeria de produtos"
+      >
+        <div className="container">
+          <div className="error" role="alert">
+            <p>Erro ao carregar produtos: {error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              type="button"
+              className="retry-button"
+            >
+              Tentar novamente
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const visibleProducts = products.slice(currentSlide, currentSlide + 4);
+  const hasProducts = products.length > 0;
+
+  return (
+    <section
+      className="product-gallery-wrapper"
+      aria-label="Galeria de produtos"
+    >
+      <div className="container">
+        <header className="section-title">
+          <h2>Produtos relacionados</h2>
+        </header>
+        <div className="section-link">
+          <a href="/#">Ver todos</a>
+        </div>
+
+        <CategoryTabs
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+
+        <div className="slider-container">
+          <NavigationButtons
+            onPrev={prevSlide}
+            onNext={nextSlide}
+            hasProducts={hasProducts}
+          />
+
+          <div
+            className="products-slider"
+            id="products-slider"
+            role="tabpanel"
+            aria-label={`Produtos da categoria ${selectedCategory}`}
+          >
+            {hasProducts ? (
+              visibleProducts.map((product, index) => (
+                <ProductCard
+                  key={`${product.productName}-${index}`}
+                  product={product}
+                />
+              ))
+            ) : (
+              <div className="no-products" role="status">
+                <p>Nenhum produto encontrado para esta categoria.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

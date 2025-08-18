@@ -24,7 +24,7 @@ export default function Header() {
     <header className="header-wrapper">
       {/* Top Bar */}
       <div className="top-bar">
-        <div className="container">
+        <div>
           <div className="top-info">
             <div className="info-item">
               <Shield size={16} />
