@@ -248,15 +248,6 @@ Este projeto foi desenvolvido como teste técnico, demonstrando:
 - Estruturação de componentes reutilizáveis
 - Configuração de build otimizado
 
-## 📞 Contato
-
-**Desenvolvedor**: [Seu Nome]  
-**Email**: [seu.email@exemplo.com]  
-**LinkedIn**: [linkedin.com/in/seu-perfil]  
-**GitHub**: [github.com/seu-usuario]
-
----
-
 > ⚠️ **Nota**: Este projeto foi desenvolvido especificamente como teste técnico para demonstração de habilidades em desenvolvimento frontend. Não é um produto comercial.
 
 ## 📄 Licença
