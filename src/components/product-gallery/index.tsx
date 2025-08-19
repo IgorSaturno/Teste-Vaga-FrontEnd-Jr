@@ -150,7 +150,11 @@ export default function ProductGallery({
     const fetchProducts = async () => {
       try {
         setError(null);
-        const response = await fetch(API_ENDPOINTS.products);
+
+        // Usando um proxy público para contornar CORS
+        const proxyUrl = "https://api.allorigins.win/raw?url=";
+        const targetUrl = encodeURIComponent(API_ENDPOINTS.products);
+        const response = await fetch(`${proxyUrl}${targetUrl}`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

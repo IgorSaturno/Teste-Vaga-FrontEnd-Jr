@@ -18,7 +18,8 @@ export const PRODUCT_CATEGORIES = [
 
 // URLs da API
 export const API_ENDPOINTS = {
-  products: "/api/produtos.json",
+  products:
+    "https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json",
 } as const;
 
 // Configurações de SEO
