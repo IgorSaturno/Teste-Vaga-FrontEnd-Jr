@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import ProductModal from "./components/ProductModal";
 import "./styles.scss";
 
 interface Product {
@@ -15,7 +16,13 @@ interface ApiResponse {
 }
 
 // Componente para o card de produto individual
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({
+  product,
+  onBuyClick,
+}: {
+  product: Product;
+  onBuyClick: (product: Product) => void;
+}) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -52,7 +59,9 @@ function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
         <p className="shipping-info">Frete grátis</p>
-        <button className="buy-button">Comprar</button>
+        <button className="buy-button" onClick={() => onBuyClick(product)}>
+          Comprar
+        </button>
       </div>
     </article>
   );
@@ -141,6 +150,8 @@ export default function ProductGallery({
   const [error, setError] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("CELULAR");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = [
     "CELULAR",
@@ -192,6 +203,16 @@ export default function ProductGallery({
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setCurrentSlide(0); // Reset para o início ao trocar categoria
+  };
+
+  const handleBuyClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
   };
 
   // Estados de renderização
@@ -274,6 +295,7 @@ export default function ProductGallery({
                 <ProductCard
                   key={`${product.productName}-${index}`}
                   product={product}
+                  onBuyClick={handleBuyClick}
                 />
               ))
             ) : (
@@ -284,6 +306,15 @@ export default function ProductGallery({
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   );
 }

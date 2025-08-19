@@ -4,6 +4,8 @@ import CategoryNav from "./components/category-nav";
 import ProductGallery from "./components/product-gallery";
 import BrandNav from "./components/brand-nav";
 import PartnerSection from "./components/partner-section";
+import NewsLetter from "./components/news-letter";
+import Footer from "./components/footer";
 import "./index.scss";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
       <PartnerSection />
       <BrandNav />
       <ProductGallery variant="no-tabs" />
+      <NewsLetter />
+      <Footer />
     </>
   );
 }
