@@ -1,0 +1,171 @@
+$colors: (
+  primary: #ffd700,
+  primary-hover: #ffc700,
+  primary-light: #fff9d6,
+
+  secondary: #271c47,
+  secondary-light: #3a1449,
+
+  white: #ffffff,
+  black: #000000,
+
+  gray-50: #f8f9fa,
+  gray-100: #e9ecef,
+  gray-200: #dee2e6,
+  gray-300: #ced4da,
+  gray-400: #adb5bd,
+  gray-500: #6c757d,
+  gray-600: #495057,
+  gray-700: #343a40,
+  gray-800: #212529,
+  gray-900: #000000,
+
+  success: #28a745,
+  success-light: #d4edda,
+  warning: #ffc107,
+  warning-light: #fff3cd,
+  error: #dc3545,
+  error-light: #f8d7da,
+  info: #17a2b8,
+  info-light: #d1ecf1,
+
+  link: #007bff,
+  link-hover: #0056b3,
+
+  background: #ffffff,
+  background-alt: #f8f9fa,
+
+  text-primary: #212529,
+  text-secondary: #6c757d,
+  text-muted: #adb5bd,
+);
+
+$font-family-primary: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
+$font-family-secondary: "Inter", system-ui, sans-serif;
+
+$font-weights: (
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900,
+);
+
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  2xl: 1.5rem,
+  3xl: 1.875rem,
+  4xl: 2.25rem,
+  5xl: 3rem,
+  6xl: 3.75rem,
+);
+
+$line-heights: (
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+  loose: 2,
+);
+
+$spacing: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem,
+  32: 8rem,
+  40: 10rem,
+  48: 12rem,
+  56: 14rem,
+  64: 16rem,
+);
+
+$border-radius: (
+  none: 0,
+  sm: 0.25rem,
+  base: 0.5rem,
+  md: 0.75rem,
+  lg: 1rem,
+  xl: 1.5rem,
+  2xl: 2rem,
+  full: 9999px,
+);
+
+$shadows: (
+  none: none,
+  sm: 0 1px 2px rgba(0, 0, 0, 0.05),
+  base: 0 1px 3px rgba(0, 0, 0, 0.1),
+  md: 0 4px 6px rgba(0, 0, 0, 0.1),
+  lg: 0 10px 15px rgba(0, 0, 0, 0.1),
+  xl: 0 20px 25px rgba(0, 0, 0, 0.1),
+  2xl: 0 25px 50px rgba(0, 0, 0, 0.25),
+);
+
+$z-index: (
+  dropdown: 1000,
+  sticky: 1020,
+  fixed: 1030,
+  modal-backdrop: 1040,
+  modal: 1050,
+  popover: 1060,
+  tooltip: 1070,
+);
+
+$transitions: (
+  fast: 0.15s,
+  base: 0.3s,
+  slow: 0.5s,
+  slower: 1s,
+);
+
+$container-max-widths: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1440px,
+);
+
+@function color($name) {
+  @return map-get($colors, $name);
+}
+
+@function font-size($name) {
+  @return map-get($font-sizes, $name);
+}
+
+@function font-weight($name) {
+  @return map-get($font-weights, $name);
+}
+
+@function spacing($name) {
+  @return map-get($spacing, $name);
+}
+
+@function border-radius($name) {
+  @return map-get($border-radius, $name);
+}
+
+@function shadow($name) {
+  @return map-get($shadows, $name);
+}
+
+@function z-index($name) {
+  @return map-get($z-index, $name);
+}

@@ -64,6 +64,8 @@
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 8px;
 
   .category-tab {
     border: 1px solid #000;
@@ -290,7 +292,6 @@
   }
 }
 
-// Responsive Design
 @media (max-width: 1024px) {
   .products-slider {
     grid-template-columns: repeat(3, 304px);
@@ -328,6 +329,8 @@
     .category-tab {
       padding: 0.5rem 1rem;
       font-size: 0.875rem;
+      width: auto;
+      min-width: 150px;
     }
   }
 
@@ -360,6 +363,8 @@
     .category-tab {
       padding: 0.5rem 0.75rem;
       font-size: 0.75rem;
+      width: auto;
+      min-width: 120px;
     }
   }
 

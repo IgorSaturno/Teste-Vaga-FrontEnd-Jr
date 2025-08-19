@@ -12,15 +12,17 @@ function App() {
   return (
     <>
       <Header />
-      <Hero />
-      <CategoryNav />
-      <ProductGallery />
-      <PartnerSection />
-      <ProductGallery variant="no-tabs" />
-      <PartnerSection />
-      <BrandNav />
-      <ProductGallery variant="no-tabs" />
-      <NewsLetter />
+      <main id="main-content" role="main">
+        <Hero />
+        <CategoryNav />
+        <ProductGallery />
+        <PartnerSection />
+        <ProductGallery variant="no-tabs" />
+        <PartnerSection />
+        <BrandNav />
+        <ProductGallery variant="no-tabs" />
+        <NewsLetter />
+      </main>
       <Footer />
     </>
   );

@@ -51,7 +51,6 @@
     transition: color 0.3s ease;
   }
 
-  // Quando o category-nav-item está ativo
   &.active {
     .nav-item {
       background: #ffffff;
@@ -65,7 +64,6 @@
   }
 }
 
-// Responsive Design
 @media (max-width: 1024px) {
   .category-nav-grid {
     gap: 20px;

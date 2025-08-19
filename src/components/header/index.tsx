@@ -5,26 +5,40 @@ import {
   Shield,
   Truck,
   CreditCard,
-  Grid3X3,
   Calendar,
   CircleUserRoundIcon,
+  Menu,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import "./styles.scss";
 import logo from "../../assets/logo.svg";
+import Container from "../common/Container";
+import BoxIcon from "../../assets/box.svg";
 
 export default function Header() {
   const [activeCategory, setActiveCategory] = useState("OFERTAS DO DIA");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
+    setIsMobileMenuOpen(false); // Fecha o menu mobile ao selecionar
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
   };
 
   return (
     <header className="header-wrapper">
-      {/* Top Bar */}
+      {/* Top Bar - Hidden on mobile */}
       <div className="top-bar">
-        <div>
+        <Container>
           <div className="top-info">
             <div className="info-item">
               <Shield size={16} />
@@ -45,29 +59,42 @@ export default function Header() {
               </span>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       {/* Main Header */}
       <div className="main-header">
-        <div className="container">
+        <Container>
           <div className="header-content">
+            {/* Mobile Menu Button */}
+            <button
+              className="mobile-menu-toggle"
+              onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
             {/* Logo */}
             <div className="logo">
-              <a href="/">
-                <img src={logo} alt="logo" width={139} height={41} />
+              <a href="/" aria-label="Econverse - Página inicial">
+                <img src={logo} alt="Econverse" width={139} height={41} />
               </a>
             </div>
 
-            {/* Search Bar */}
-            <div className="search-section">
+            {/* Search Bar - Desktop */}
+            <div
+              className={`search-section ${isSearchOpen ? "search-open" : ""}`}
+            >
               <div className="search-bar">
                 <input
                   type="text"
                   placeholder="O que você está buscando?"
                   className="search-input"
+                  aria-label="Campo de busca"
                 />
-                <button className="search-button">
+                <button className="search-button" aria-label="Buscar">
                   <Search size={18} />
                 </button>
               </div>
@@ -75,27 +102,59 @@ export default function Header() {
 
             {/* Header Actions */}
             <div className="header-actions">
-              <div className="action-item">
-                <Grid3X3 size={20} />
-              </div>
-              <div className="action-item">
+              {/* Mobile Search Toggle */}
+              <button
+                className="action-item mobile-search-toggle"
+                onClick={toggleSearch}
+                aria-label="Toggle search"
+              >
+                <Search size={20} />
+              </button>
+
+              <button className="action-item" aria-label="Categorias">
+                <img src={BoxIcon} alt="Pedidos" width={20} height={20} />
+              </button>
+              <button className="action-item" aria-label="Favoritos">
                 <Heart size={20} />
-              </div>
-              <div className="action-item">
+              </button>
+              <button className="action-item" aria-label="Minha conta">
                 <CircleUserRoundIcon size={20} />
-              </div>
-              <div className="action-item">
+              </button>
+              <button className="action-item" aria-label="Carrinho de compras">
                 <ShoppingCart size={20} />
-              </div>
+              </button>
             </div>
           </div>
-        </div>
+
+          {/* Mobile Search Bar */}
+          <div
+            className={`mobile-search ${
+              isSearchOpen ? "mobile-search-open" : ""
+            }`}
+          >
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="O que você está buscando?"
+                className="search-input"
+                aria-label="Campo de busca mobile"
+              />
+              <button className="search-button" aria-label="Buscar">
+                <Search size={18} />
+              </button>
+            </div>
+          </div>
+        </Container>
       </div>
 
       {/* Navigation Menu */}
-      <div className="nav-header">
-        <div className="container">
-          <nav className="nav-menu">
+      <div className={`nav-header ${isMobileMenuOpen ? "nav-open" : ""}`}>
+        <Container>
+          <nav
+            className="nav-menu"
+            role="navigation"
+            aria-label="Menu principal"
+          >
             <a
               href="#"
               className={`nav-item ${
@@ -173,8 +232,17 @@ export default function Header() {
               <span>ASSINATURA</span>
             </a>
           </nav>
-        </div>
+        </Container>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="mobile-menu-overlay"
+          onClick={toggleMobileMenu}
+          aria-hidden="true"
+        />
+      )}
     </header>
   );
 }

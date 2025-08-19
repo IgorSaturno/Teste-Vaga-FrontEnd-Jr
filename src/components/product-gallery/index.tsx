@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductModal from "./components/ProductModal";
+import Container from "../common/Container";
+import type { Product, ApiResponse, CategoryTabsProps } from "../../types";
+import {
+  PRODUCT_CATEGORIES,
+  API_ENDPOINTS,
+  SLIDER_CONFIG,
+} from "../../constants";
 import "./styles.scss";
-
-interface Product {
-  productName: string;
-  descriptionShort: string;
-  photo: string;
-  price: number;
-}
-
-interface ApiResponse {
-  success: boolean;
-  products: Product[];
-}
 
 // Componente para o card de produto individual
 function ProductCard({
@@ -72,11 +67,7 @@ function CategoryTabs({
   categories,
   selectedCategory,
   onCategoryChange,
-}: {
-  categories: string[];
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-}) {
+}: CategoryTabsProps) {
   return (
     <nav
       className="category-tabs"
@@ -153,20 +144,13 @@ export default function ProductGallery({
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const categories = [
-    "CELULAR",
-    "ACESSÓRIOS",
-    "TABLETS",
-    "NOTEBOOKS",
-    "TVS",
-    "VER TODOS",
-  ];
+  const categories = PRODUCT_CATEGORIES;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setError(null);
-        const response = await fetch("/api/produtos.json");
+        const response = await fetch(API_ENDPOINTS.products);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -191,12 +175,18 @@ export default function ProductGallery({
   }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 4 >= products.length ? 0 : prev + 4));
+    setCurrentSlide((prev) =>
+      prev + SLIDER_CONFIG.itemsPerPage >= products.length
+        ? 0
+        : prev + SLIDER_CONFIG.itemsPerPage
+    );
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) =>
-      prev - 4 < 0 ? Math.max(0, products.length - 4) : prev - 4
+      prev - SLIDER_CONFIG.itemsPerPage < 0
+        ? Math.max(0, products.length - SLIDER_CONFIG.itemsPerPage)
+        : prev - SLIDER_CONFIG.itemsPerPage
     );
   };
 
@@ -253,15 +243,19 @@ export default function ProductGallery({
     );
   }
 
-  const visibleProducts = products.slice(currentSlide, currentSlide + 4);
+  const visibleProducts = products.slice(
+    currentSlide,
+    currentSlide + SLIDER_CONFIG.itemsPerPage
+  );
   const hasProducts = products.length > 0;
 
   return (
     <section
       className="product-gallery-wrapper"
       aria-label="Galeria de produtos"
+      id="produtos"
     >
-      <div className="container">
+      <Container>
         <header className="section-title">
           <h2>Produtos relacionados</h2>
         </header>
@@ -305,7 +299,7 @@ export default function ProductGallery({
             )}
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Modal */}
       {selectedProduct && (

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { X, Plus, Minus } from "lucide-react";
+import type { Product } from "../../../../types";
 import "./styles.scss";
-
-interface Product {
-  productName: string;
-  descriptionShort: string;
-  photo: string;
-  price: number;
-}
 
 interface ProductModalProps {
   product: Product;

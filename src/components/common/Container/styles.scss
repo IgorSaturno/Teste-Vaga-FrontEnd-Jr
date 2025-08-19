@@ -1,0 +1,67 @@
+@use "../../../styles/mixins" as *;
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  &--sm {
+    max-width: 640px;
+  }
+
+  &--md {
+    max-width: 768px;
+  }
+
+  &--lg {
+    max-width: 1024px;
+  }
+
+  &--xl {
+    max-width: 1440px;
+  }
+
+  &--full {
+    max-width: 100%;
+  }
+
+  &--padding-none {
+    padding: 0;
+  }
+
+  &--padding-sm {
+    padding: 0 1rem;
+
+    @include respond-to(tablet) {
+      padding: 0 1.5rem;
+    }
+
+    @include respond-to(desktop) {
+      padding: 0 2rem;
+    }
+  }
+
+  &--padding-md {
+    padding: 0 1rem;
+
+    @include respond-to(tablet) {
+      padding: 0 2rem;
+    }
+
+    @include respond-to(desktop) {
+      padding: 0 2.5rem;
+    }
+  }
+
+  &--padding-lg {
+    padding: 0 1.5rem;
+
+    @include respond-to(tablet) {
+      padding: 0 2.5rem;
+    }
+
+    @include respond-to(desktop) {
+      padding: 0 3rem;
+    }
+  }
+}
